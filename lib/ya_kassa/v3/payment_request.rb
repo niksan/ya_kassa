@@ -8,12 +8,14 @@ module YaKassa
       attributable :return_url
       attributable :confirmation_url
       attributable :description
+      attributable :metadata, default: {}
 
       validatable :amount_value, :is_a, class: 'Float'
       validatable :amount_currency, :present
       validatable :capture, :is_a_boolean
       validatable :confirmation_type, :present
       validatable :return_url, :is_a, class: 'String'
+      validatable :metadata, :is_a, class: 'Hash'
 
       # amount_value and return_url are required
       def body
@@ -27,7 +29,8 @@ module YaKassa
             type: confirmation_type,
             return_url: return_url
           },
-          description: description
+          description: description,
+          metadata: metadata
         }
       end
 
